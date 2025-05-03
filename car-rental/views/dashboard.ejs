@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="/dashboard">Home</a>
+        <a href="/cars/add">Add Car</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="dashboard">
+        <h1>Welcome to Car Rental System</h1>
+
+        <div class="car-list">
+            <% cars.forEach(car=> { %>
+                <div class="car-card">
+                    <img src="<%= car.imageUrl %>" alt="<%= car.name %>">
+                    <h2>
+                        <%= car.name %>
+                    </h2>
+                    <p>
+                        <%= car.description %>
+                    </p>
+                    <p class="price">₹<%= car.price %> / day</p>
+                    <% if (user && user._id.toString()===car.userId.toString()) { %>
+                        <a href="/cars/edit/<%= car._id %>" class="button button-primary">Edit</a>
+                        <form action="/cars/delete/<%= car._id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="button button-danger">Delete</button>
+                        </form>
+                        <% } %>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+</body>
+
+</html>
